@@ -1,19 +1,26 @@
+import { Direct } from "@/models/Direct.model";
 import axios from "axios";
 
 const apiKey = import.meta.env.VITE_API_KEY;
-const apiUrl = import.meta.env.VITE_API_URL;
+const apiUrl = `${import.meta.env.VITE_API_URL}/geo/1.0`;
 
-export const getDirects = async (q: string, coutry: string) => {
+export const getDirects = async (q: string, coutry: string): Promise<Direct[] | null> => {
+  console.log(`${q}, ${coutry}`);
+
   try {
     const response = await axios.get(`${apiUrl}/direct`, {
       params: {
-        q: `${q}, ${coutry}`,
+        q: `${q}`,
         appid: apiKey,
         limit: 10,
       },
     });
-    return response.data;
-  } catch (error) {
-    return error;
+    const uniqueData = response.data.filter((item: Direct, index: number, self: Direct[]) => {
+      return index === self.findIndex((t) => t.name === item.name);
+    });
+
+    return uniqueData;
+  } catch {
+    return null;
   }
 };
