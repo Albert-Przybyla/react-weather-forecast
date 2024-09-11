@@ -1,10 +1,10 @@
 export interface Direct {
-  name: string;
-  local_names: LocalNames;
+  name?: string;
+  local_names?: LocalNames;
   lat: number;
   lon: number;
-  country: string;
-  state: string;
+  country?: string;
+  state?: string;
 }
 
 export interface LocalNames {
