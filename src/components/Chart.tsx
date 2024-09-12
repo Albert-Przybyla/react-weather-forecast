@@ -3,7 +3,7 @@ import { Area, AreaChart, CartesianGrid, XAxis } from "recharts";
 import { ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
 import { useForecastContext } from "@/contexts/forecastContext";
 
-const Chart = () => {
+export const Chart = () => {
   const chartConfig = {
     temp: {
       label: "Temperature",
@@ -22,8 +22,6 @@ const Chart = () => {
         data={
           forecastData?.list.map((x) => {
             const d = new Date(x.dt_txt).toString().split(" ");
-            console.log(d);
-
             return {
               temp: x.main.temp,
               feels_like: x.main.feels_like,
@@ -45,5 +43,3 @@ const Chart = () => {
     </ChartContainer>
   );
 };
-
-export default Chart;

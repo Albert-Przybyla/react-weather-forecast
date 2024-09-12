@@ -5,7 +5,7 @@ import { Skeleton } from "./ui/skeleton";
 import { ArrowUp } from "lucide-react";
 import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
 import { useForecastContext } from "@/contexts/forecastContext";
-import Chart from "./chart";
+import { Chart } from "@/components/Chart";
 
 const DirectInfo = () => {
   const { weatherData } = useWeatherContext();

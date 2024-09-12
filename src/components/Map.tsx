@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { MapContainer, TileLayer } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
@@ -12,7 +12,6 @@ const Map = () => {
   const [timeValue, setTimeValue] = useState<number>(0);
   const { weatherData } = useWeatherContext();
   const [center, setCenter] = useState<[number, number]>([52.2297, 21.0122]);
-  const mapRef = useRef(null);
 
   useEffect(() => {
     if (weatherData) {
@@ -60,14 +59,7 @@ const Map = () => {
             onChange={(e) => debouncedTime(Number(e.target.value))}
           />
         </div>
-        <MapContainer
-          center={center}
-          zoom={5}
-          style={{ height: "60vh", width: "100%" }}
-          whenCreated={(mapInstance: any) => {
-            mapRef.current = mapInstance;
-          }}
-        >
+        <MapContainer center={center} zoom={5} style={{ height: "60vh", width: "100%" }}>
           <TileLayer
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'

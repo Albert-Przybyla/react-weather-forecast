@@ -34,10 +34,10 @@ export function SearchDirect({ onSelect }: Props) {
     fetchDirects("Warszawa");
   }, []);
 
-  const fetchDirects = async (query: string, country: string = "pl") => {
+  const fetchDirects = async (query: string) => {
     setLoading(true);
     try {
-      const data = await getDirects(query, country);
+      const data = await getDirects(query);
       if (data) {
         setData(data);
       }
