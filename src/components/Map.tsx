@@ -1,10 +1,11 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { MapContainer, TileLayer } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "./ui/input";
 import { useWeatherContext } from "@/contexts/weatherContext";
+import { debounce } from "lodash";
 const Map = () => {
   const API_KEY = import.meta.env.VITE_API_KEY;
   const [toggleValue, setToggleValue] = useState("1");
@@ -18,6 +19,11 @@ const Map = () => {
       setCenter([weatherData.coord.lat, weatherData.coord.lon]);
     }
   }, [weatherData]);
+
+  const debouncedTime = useCallback(
+    debounce((value: number) => setTimeValue(value), 500),
+    []
+  );
 
   return (
     <Card className="weather-info mx-auto my-4 text-center">
@@ -51,7 +57,7 @@ const Map = () => {
             min="-24"
             max="24"
             value={timeValue}
-            onChange={(e) => setTimeValue(Number(e.target.value))}
+            onChange={(e) => debouncedTime(Number(e.target.value))}
           />
         </div>
         <MapContainer
