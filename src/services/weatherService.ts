@@ -21,3 +21,20 @@ export async function getWeather(lat: number, lon: number): Promise<WeatherRespo
     throw error;
   }
 }
+
+export async function getWeatherByCity(term: string): Promise<WeatherResponse | null> {
+  try {
+    const response = await axios.get(`${apiUrl}/weather`, {
+      params: {
+        q: term,
+        appid: apiKey,
+        units: "metric",
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching weather data:", error);
+    throw error;
+  }
+}

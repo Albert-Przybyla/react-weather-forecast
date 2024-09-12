@@ -4,26 +4,41 @@ import Map from "./components/Map";
 import { Direct } from "./models/Direct.model";
 import { SearchDirect } from "./components/SearchDirect";
 import { getForecast } from "./services/forecastService";
-import { getWeather } from "./services/weatherService";
+import { getWeather, getWeatherByCity } from "./services/weatherService";
+import DirectInfo from "./components/DirectInfo";
+import { useWeatherContext } from "./contexts/weatherContext";
+import { useForecastContext } from "./contexts/forecastContext";
 
 function App() {
+  const { setWeatherData } = useWeatherContext();
+  const { setForecastData } = useForecastContext();
   const prepareData = (d: Direct) => {
-    getWeather(d.lat, d.lon).then((data) => {
-      console.log(data);
-    });
+    if (d.name)
+      getWeatherByCity(d.name).then((data) => {
+        setWeatherData(data);
+      });
+    else
+      getWeather(d.lat, d.lon).then((data) => {
+        setWeatherData(data);
+      });
 
     getForecast(d.lat, d.lon).then((data) => {
-      console.log(data);
+      setForecastData(data);
     });
   };
 
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
       <nav className="p-4 bg-gray-800 flex">
-        <SearchDirect onSelect={prepareData} />
+        <div className="container mx-auto">
+          <SearchDirect onSelect={prepareData} />
+        </div>
       </nav>
-      {/* <DirectInfo name={direct?.name} /> */}
-      <Map />
+
+      <div className="container mx-auto">
+        <DirectInfo />
+        <Map />
+      </div>
     </ThemeProvider>
   );
 }

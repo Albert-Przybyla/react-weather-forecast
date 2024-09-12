@@ -1,0 +1,38 @@
+.rain {
+  background-image: url("/rain.gif");
+  background-size: cover;
+  background-position: center;
+}
+
+.snow {
+  background-image: url("/snow.jpg");
+  background-size: cover;
+  background-position: center;
+}
+
+.sun {
+  background-image: url("/sun.png");
+  background-size: cover;
+  background-position: center;
+}
+
+.cold {
+  background-image: url("/cold-bg.png");
+  background-size: cover;
+  background-position: center;
+}
+
+.warm {
+  background-image: url("/warm.jpg");
+  background-size: cover;
+  background-position: center;
+}
+
+.weather-info {
+  overflow: hidden;
+  max-width: 1000px;
+}
+
+.weather-info-inner {
+  background-color: rgba(0, 0, 0, 0.42);
+}

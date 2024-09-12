@@ -5,8 +5,6 @@ const apiKey = import.meta.env.VITE_API_KEY;
 const apiUrl = `${import.meta.env.VITE_API_URL}/geo/1.0`;
 
 export const getDirects = async (q: string, coutry: string): Promise<Direct[] | null> => {
-  console.log(`${q}, ${coutry}`);
-
   try {
     const response = await axios.get(`${apiUrl}/direct`, {
       params: {
