@@ -3,15 +3,9 @@ import "./DiurectInfo.css";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "./ui/skeleton";
 import { ArrowUp } from "lucide-react";
-
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
+import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
 import { useForecastContext } from "@/contexts/forecastContext";
+import Chart from "./chart";
 
 const DirectInfo = () => {
   const { weatherData } = useWeatherContext();
@@ -99,7 +93,7 @@ const DirectInfo = () => {
             <CarouselContent>
               {forecastData
                 ? forecastData.list.map((el, index) => (
-                    <CarouselItem key={index} className="basis-1/2 sm:basis-1/2 md:basis-1/3 lg:basis-1/5">
+                    <CarouselItem key={index} className="basis-1/2 md:basis-1/3 lg:basis-1/5">
                       <div className="p-1">
                         <div className="weather-info-inner rounded-md text-center p-1">
                           <h1 className="p-2">
@@ -122,7 +116,7 @@ const DirectInfo = () => {
                     </CarouselItem>
                   ))
                 : Array.from({ length: 5 }).map((_, index) => (
-                    <CarouselItem key={index} className="sm:basis-1/2 md:basis-1/3 lg:basis-1/5">
+                    <CarouselItem key={index} className="basis-1/2 md:basis-1/3 lg:basis-1/5">
                       <div className="p-1">
                         <div className="weather-info-inner rounded-md">
                           <Skeleton className="h-[250px] w-full rounded-md" />
@@ -133,6 +127,7 @@ const DirectInfo = () => {
             </CarouselContent>
           </Carousel>
         </div>
+        <div className="weather-info-inner rounded-md text-center p-3 mt-6">{weatherData && <Chart />}</div>
       </CardContent>
     </Card>
   );
